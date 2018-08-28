@@ -1,29 +1,12 @@
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import RMSprop
-from keras import backend as K
+
 
 from data import load_data
+from loss import CustomLoss
 
 import matplotlib.pyplot as plt
-import numpy as np
-
-class CustomLoss():
-    """ Implements Hozna Kalina's loss function. """
-
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
-
-    def rho(self, x):
-        # if x > 0: a*abs(x) else b*abs(x) 
-        return K.switch(x > 0,
-                        self.a * K.abs(x),
-                        self.b * K.abs(x))
-    
-    def  loss(self, y_true, y_pred):
-        diff = y_true - y_pred
-        return K.sum(self.rho(diff))
 
 
 def mlp(loss):
@@ -75,5 +58,5 @@ if __name__ == "__main__":
     ax.plot(x, ym1, color='r')
     ax.plot(x, ym2, color='r')
 
-    #plt.show()    
-    plt.savefig("obalka2.png", bbox_inches='tight')
+    plt.show()    
+    #plt.savefig("obalka2.png", bbox_inches='tight')
