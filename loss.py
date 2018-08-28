@@ -1,7 +1,7 @@
 from keras import backend as K
 
 class CustomLoss():
-    """ Implements Hozna Kalina's loss function. """
+    """ Implements Honza Kalina's loss function. """
 
     def __init__(self, a, b):
         self.a = a
