@@ -3,9 +3,9 @@ from keras import backend as K
 class CustomLoss():
     """ Implements Honza Kalina's loss function. """
 
-    def __init__(self, a, b):
-        self.a = a
-        self.b = b
+    def __init__(self, tau):
+        self.a = tau
+        self.b = 1 - tau
 
     def rho(self, x):
         # if x > 0: a*abs(x) else b*abs(x) 
