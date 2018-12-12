@@ -6,7 +6,7 @@ import numpy as np
 
 from keras.models import Sequential
 from keras.layers import Dense
-from keras.optimizers import SGD
+from keras.optimizers import SGD, RMSprop, Adam
 
 
 from data import load_data
@@ -21,13 +21,14 @@ set_random_seed(42)
 def mlp(loss):
 
     model = Sequential()
-    model.add(Dense(5, input_shape=(1,), activation="sigmoid"))
+    model.add(Dense(32, input_shape=(1,), activation="sigmoid"))
+    model.add(Dense(16, activation="sigmoid"))
     model.add(Dense(1))
 
     model.summary()
 
     model.compile(loss=loss,
-                  optimizer=SGD()
+                  optimizer=Adam()
                   )
     return model
 
@@ -51,7 +52,7 @@ def fit_n(n, model_generator, loss, x, y):
     
 if __name__ == "__main__":
 
-    x, y = load_data("data1")
+    x, y = load_data("data4")
 
     tau1 = float(sys.argv[1])
     tau2 = float(sys.argv[2])
@@ -73,4 +74,4 @@ if __name__ == "__main__":
     ax.plot(x, ym2, color='r')
 
     #plt.show()    
-    plt.savefig(f"mlp_{tau1}_{tau2}.png", bbox_inches='tight')
+    plt.savefig("mlp_{}_{}.png".format(tau1, tau2), bbox_inches='tight')
