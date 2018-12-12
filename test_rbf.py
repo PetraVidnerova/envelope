@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 def rbf(loss):
 
     model = Sequential()
-    model.add(RBFLayer(5, input_shape=(1,), initializer=RandomUniform(0.0, 10.0), betas=0.1))
+    model.add(RBFLayer(10, input_shape=(1,), initializer=RandomUniform(-1.0, 1.0), betas=1.0))
     model.add(Dense(1, use_bias=False))
 
     model.summary()
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     seed(42)
     set_random_seed(42)
     
-    x, y = load_data("data1")
+    x, y = load_data("data4")
 
     tau1 = float(sys.argv[1])
     tau2 = float(sys.argv[2])
