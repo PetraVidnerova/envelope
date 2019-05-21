@@ -1,5 +1,6 @@
 from keras import backend as K
 
+
 class CustomLoss():
     """ Implements Honza Kalina's loss function. """
 
@@ -13,6 +14,10 @@ class CustomLoss():
                         self.a * K.abs(x),
                         self.b * K.abs(x))
     
-    def  loss(self, y_true, y_pred):
+    def loss(self, y_true, y_pred):
         diff = y_true - y_pred
         return K.sum(self.rho(diff))
+
+
+
+ 
