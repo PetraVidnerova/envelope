@@ -1,4 +1,6 @@
 import sys
+from importlib import import_module
+
 import numpy as np
 
 from keras.models import Sequential
@@ -11,22 +13,6 @@ from utils import mean_squared_error, trimmed_mean_squared_error
 
 # seed(142)
 # set_random_seed(142)
-
-
-def mlp(loss):
-
-    model = Sequential()
-    model.add(Dense(8, input_shape=(4,), activation="tanh"))
-#    model.add(Dense(8, activation="sigmoid"))
-#    model.add(Dense(8, activation="sigmoid"))
-    model.add(Dense(1, activation="tanh"))
-
-    model.summary()
-
-    model.compile(loss=loss,
-                  optimizer=Adam(),
-                  )
-    return model
 
 
 def fit_n(n, model_generator, loss, x, y):
@@ -60,18 +46,18 @@ if __name__ == "__main__":
     x1, y1 = load_data("data/autompg")
     x, y = load_data("data/autompg", lower, upper)
 
-#   print(x)
-#   print(y)
+    mod = import_module(sys.argv[-1])
+    model = mod.model 
 
     # model
-    model = fit_n(5, mlp, losses.mean_squared_error, x, y)
-    ym1 = model.predict(x1)
+    trained_model = fit_n(5, model, losses.mean_squared_error, x, y)
+    ym1 = trained_model.predict(x1)
 
     if lower is None and upper is None:
-        model.save("mlp_autompg_{index}_plain.h5".format(index=index))
+        trained_model.save("mlp_autompg_{index}_plain.h5".format(index=index))
         np.save("mlp_autompg_{index}_y_plain".format(index=index), ym1)
     else:
-        model.save("mlp_autompg_{index}_restricted_{lower}_{upper}.h5".format(
+        trained_model.save("mlp_autompg_{index}_restricted_{lower}_{upper}.h5".format(
             index=index, lower=sys.argv[1], upper=sys.argv[2]))
         np.save("mlp_autompg_{index}_y_restricted_{lower}_{upper}".format(
             index=index, lower=sys.argv[1], upper=sys.argv[2]), ym1)
