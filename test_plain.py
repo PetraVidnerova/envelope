@@ -35,6 +35,8 @@ def fit_n(n, model_generator, loss, x, y):
 
 if __name__ == "__main__":
 
+    data_name = "data6" 
+
     index = sys.argv[1]
 
     if len(sys.argv) > 3:
@@ -43,8 +45,8 @@ if __name__ == "__main__":
     else:
         lower, upper = None, None
 
-    x1, y1 = load_data("data/autompg")
-    x, y = load_data("data/autompg", lower, upper)
+    x1, y1 = load_data("data/"+data_name)
+    x, y = load_data("data/"+data_name, lower, upper)
 
     mod = import_module(sys.argv[-1])
     model = mod.model 
@@ -54,13 +56,13 @@ if __name__ == "__main__":
     ym1 = trained_model.predict(x1)
 
     if lower is None and upper is None:
-        trained_model.save("mlp_autompg_{index}_plain.h5".format(index=index))
-        np.save("mlp_autompg_{index}_y_plain".format(index=index), ym1)
+        trained_model.save("mlp_{data}_{index}_plain.h5".format(data=data_name, index=index))
+        np.save("mlp_{data}_{index}_y_plain".format(data=data_name, index=index), ym1)
     else:
-        trained_model.save("mlp_autompg_{index}_restricted_{lower}_{upper}.h5".format(
-            index=index, lower=sys.argv[1], upper=sys.argv[2]))
-        np.save("mlp_autompg_{index}_y_restricted_{lower}_{upper}".format(
-            index=index, lower=sys.argv[1], upper=sys.argv[2]), ym1)
+        trained_model.save("mlp_{data}_{index}_restricted_{lower}_{upper}.h5".format(
+            data=data_name, index=index, lower=sys.argv[2], upper=sys.argv[3]))
+        np.save("mlp_{data}_{index}_y_restricted_{lower}_{upper}".format(
+            data=data_name, index=index, lower=sys.argv[2], upper=sys.argv[3]), ym1)
 
     # calculate final loss
     ym1 = ym1.squeeze()
