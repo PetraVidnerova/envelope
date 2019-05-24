@@ -34,4 +34,7 @@ def load_data(name, lower=None, upper=None):
         x = x[selected]
         y = y[selected]
 
+    print(x.shape)
+    print(y.shape)
+
     return x, y

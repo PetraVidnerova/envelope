@@ -121,19 +121,19 @@ def trimmed_model(data_name, label, lower_name, upper_name, model_name):
     ym1 = trained_model.predict(x1)
 
     trained_model.save(
-        "mlp_{data}_{label}_restricted_{lower}_{upper}.h5".format(
+        "mlp_{data}_{label}_trimmed_{lower}_{upper}.h5".format(
             data=data_name,
             label=label,
             lower=lower_name,
             upper=upper_name))
-    np.save("mlp_{data}_{label}_y_restricted_{lower}_{upper}".format(
+    np.save("mlp_{data}_{label}_y_trimmed_{lower}_{upper}".format(
         data=data_name, label=label, lower=lower_name, upper=upper_name),
         ym1)
 
     # calculate final loss
     ym1 = ym1.squeeze()
-    print("MSE:  ", mean_squared_error(y1, ym1))
-    print("TMSE: ", trimmed_mean_squared_error(y1, ym1))
+    click.echo("MSE:  {}".format(mean_squared_error(y1, ym1)))
+    click.echo("TMSE: {}".format(trimmed_mean_squared_error(y1, ym1)))
 
 
 if __name__ == "__main__":
