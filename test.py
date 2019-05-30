@@ -55,15 +55,15 @@ def quantiles(data_name, label, tau1, tau2, model_name):
     loss = CustomLoss(tau1)
     model1 = fit_n(5, model, loss.loss, x, y)
     ym1 = model1.predict(x)
-    model1.save("mlp_{}_{}_{}.h5".format(data_name, label, tau1))
-    np.save("mlp_{}_{}_y_{}".format(data_name, label, tau1), ym1)
+    model1.save("{}_{}_{}_{}.h5".format(model_name, data_name, label, tau1))
+    np.save("{}_{}_{}_y_{}".format(model_name, data_name, label, tau1), ym1)
 
     # model 2 - lower bound
     loss = CustomLoss(tau2)
     model2 = fit_n(5, model, loss.loss, x, y)
     ym2 = model2.predict(x)
-    model2.save("mlp_{}_{}_{}.h5".format(data_name, label, tau2))
-    np.save("mlp_{}_{}_y_{}".format(data_name, label, tau2), ym2)
+    model2.save("{}_{}_{}_{}.h5".format(model_name, data_name, label, tau2))
+    np.save("{}_{}_{}_y_{}".format(model_name, data_name, label, tau2), ym2)
 
 
 @test.command()
@@ -87,10 +87,10 @@ def simple_model(label, data_name, model_name):
     trained_model = fit_n(5, model, losses.mean_squared_error, x, y)
     ym1 = trained_model.predict(x)
 
-    trained_model.save("mlp_{data}_{label}_plain.h5".format(
-        data=data_name, label=label))
-    np.save("mlp_{data}_{label}_y_plain".format(
-        data=data_name, label=label), ym1)
+    trained_model.save("{model}_{data}_{label}_plain.h5".format(
+        model=model_name, data=data_name, label=label))
+    np.save("{model}_{data}_{label}_y_plain".format(
+        model=model_name, data=data_name, label=label), ym1)
 
     # calculate final loss
     ym1 = ym1.squeeze()
@@ -121,13 +121,14 @@ def trimmed_model(data_name, label, lower_name, upper_name, model_name):
     ym1 = trained_model.predict(x1)
 
     trained_model.save(
-        "mlp_{data}_{label}_trimmed_{lower}_{upper}.h5".format(
+        "{model}_{data}_{label}_trimmed_{lower}_{upper}.h5".format(
+            model=model_name,
             data=data_name,
             label=label,
             lower=lower_name,
             upper=upper_name))
-    np.save("mlp_{data}_{label}_y_trimmed_{lower}_{upper}".format(
-        data=data_name, label=label, lower=lower_name, upper=upper_name),
+    np.save("{model}_{data}_{label}_y_trimmed_{lower}_{upper}".format(
+        model=model_name, data=data_name, label=label, lower=lower_name, upper=upper_name),
         ym1)
 
     # calculate final loss

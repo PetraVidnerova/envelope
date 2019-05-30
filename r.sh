@@ -1,7 +1,10 @@
-LABEL="rbf16"
+LABEL=$2
 DATA=$1
-MODEL="rbf"
+MODEL=$3 
 
+echo "Data: $DATA"
+echo "LABEL: $LABEL"
+echo "Model: $MODEL"
 
 python test.py  quantiles --label ${LABEL} ${DATA} 0.1 0.9 ${MODEL} > /dev/null &
 python test.py  quantiles --label ${LABEL} ${DATA} 0.2 0.8 ${MODEL} > /dev/null &

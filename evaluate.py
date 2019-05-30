@@ -4,12 +4,15 @@ import numpy as np
 
 name = sys.argv[1]
 
-num = 5
+num = 0
+labels = eval(sys.argv[2]) 
+print(labels)
 
-plain = ["{}_{}_plain.txt".format(name, i) for i in range(num)]
-trimmed1 = ["{}_{}_0.1_0.9.txt".format(name, i) for i in range(num)]
-trimmed2 = ["{}_{}_0.2_0.8.txt".format(name, i) for i in range(num)]
-trimmed3 = ["{}_{}_0.3_0.7.txt".format(name, i) for i in range(num)]
+
+plain = ["{}_{}_plain.txt".format(name, i) for i in labels]
+trimmed1 = ["{}_{}_trimmed_0.1_0.9.txt".format(name, i) for i in labels ]
+trimmed2 = ["{}_{}_trimmed_0.2_0.8.txt".format(name, i) for i in labels ]
+trimmed3 = ["{}_{}_trimmed_0.3_0.7.txt".format(name, i) for i in labels ]
 
 
 def get_number(line):
