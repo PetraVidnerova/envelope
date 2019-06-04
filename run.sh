@@ -1,5 +1,5 @@
-for I in `seq 0 4`
+for I in `seq 5 9`
 do
-    ./r.sh autompg rbf_$I rbf8 & 
+    ./r.sh autompg mlp16-8-tanh_$I mlp-tanh & 
 done
 
